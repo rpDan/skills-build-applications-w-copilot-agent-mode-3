@@ -28,7 +28,7 @@ app.get('/api/health', (_request, response) => {
 });
 
 for (const [resourceName, model] of Object.entries(resources)) {
-  app.get(`/api/${resourceName}/`, async (_request, response, next) => {
+  app.get(`/api/${resourceName}`, async (_request, response, next) => {
     try {
       const documents = await model.find().lean();
       response.json(documents);
@@ -37,7 +37,7 @@ for (const [resourceName, model] of Object.entries(resources)) {
     }
   });
 
-  app.post(`/api/${resourceName}/`, async (request, response, next) => {
+  app.post(`/api/${resourceName}`, async (request, response, next) => {
     try {
       const document = await model.create(request.body);
       response.status(201).json(document);
