@@ -6,7 +6,7 @@ function Activities() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCollection('activities').then(setActivities).catch((requestError) => setError(requestError.message));
+    fetchCollection('/api/activities/').then(setActivities).catch((requestError) => setError(requestError.message));
   }, []);
 
   if (error) return <p className="alert alert-danger">{error}</p>;

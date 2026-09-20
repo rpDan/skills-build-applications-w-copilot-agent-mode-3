@@ -6,7 +6,7 @@ function Workouts() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCollection('workouts').then(setWorkouts).catch((requestError) => setError(requestError.message));
+    fetchCollection('/api/workouts/').then(setWorkouts).catch((requestError) => setError(requestError.message));
   }, []);
 
   if (error) return <p className="alert alert-danger">{error}</p>;

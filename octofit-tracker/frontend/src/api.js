@@ -11,10 +11,10 @@ export function getItems(payload) {
   return [];
 }
 
-export async function fetchCollection(resource) {
-  const response = await fetch(`${API_BASE_URL}/api/${resource}/`);
+export async function fetchCollection(endpoint) {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`);
   if (!response.ok) {
-    throw new Error(`Unable to load ${resource} (${response.status})`);
+    throw new Error(`Unable to load ${endpoint} (${response.status})`);
   }
 
   return getItems(await response.json());
