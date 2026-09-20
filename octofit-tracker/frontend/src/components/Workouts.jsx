@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchCollection } from '../api';
 
+const workoutsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : '/api/workouts/';
+
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCollection('/api/workouts/').then(setWorkouts).catch((requestError) => setError(requestError.message));
+    fetchCollection(workoutsEndpoint).then(setWorkouts).catch((requestError) => setError(requestError.message));
   }, []);
 
   if (error) return <p className="alert alert-danger">{error}</p>;

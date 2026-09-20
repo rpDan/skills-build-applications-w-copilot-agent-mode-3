@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchCollection } from '../api';
 
+const leaderboardEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : '/api/leaderboard/';
+
 function Leaderboard() {
   const [leaders, setLeaders] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCollection('/api/leaderboard/').then((items) => setLeaders([...items].sort((a, b) => a.rank - b.rank))).catch((requestError) => setError(requestError.message));
+    fetchCollection(leaderboardEndpoint).then((items) => setLeaders([...items].sort((a, b) => a.rank - b.rank))).catch((requestError) => setError(requestError.message));
   }, []);
 
   if (error) return <p className="alert alert-danger">{error}</p>;

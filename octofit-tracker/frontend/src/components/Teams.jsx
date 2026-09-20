@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchCollection } from '../api';
 
+const teamsEndpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : '/api/teams/';
+
 function Teams() {
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCollection('/api/teams/').then(setTeams).catch((requestError) => setError(requestError.message));
+    fetchCollection(teamsEndpoint).then(setTeams).catch((requestError) => setError(requestError.message));
   }, []);
 
   if (error) return <p className="alert alert-danger">{error}</p>;
